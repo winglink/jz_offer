@@ -1,7 +1,19 @@
 public class pro_1 {
     public static   void main(String[] args){
          int[] a={1,2,5,3,4,5};
-         find_d(a,0,a.length-1);
+         int[][] aa={
+                 {1,2,8,9},
+                 {2,3,9,12},
+                 {4,7,10,13},
+                 {6,8,11,15},
+         };
+           String ss="we are happy";
+           char[] cc=ss.toCharArray();
+           System.out.println(cc);
+           System.out.println(cc.length);
+           cc=th_space(cc);
+        System.out.println(cc);
+//        System.out.println(double_in(aa,6,0,aa[0].length-1));
     }
     /**********题目3 数组中的重复数字 *****************/
     public void find_c(int[] a ) {
@@ -43,5 +55,47 @@ public class pro_1 {
                     count++;
            }
            return count;
+    }
+    /********面试题4 二维数组查找*****************/
+    public  static  boolean double_in(int[][] a,int findi,int hang,int lie){
+        System.out.println("hang="+hang);
+        System.out.println("lie="+lie);
+        boolean result=false;
+        if( hang >=  a.length || lie <0)
+            return  false;
+        if( findi == a[hang][lie])
+            return  true;
+        else  if( findi < a[hang][lie])
+            result=double_in(a,findi,hang,lie-1);
+        else
+            result=double_in(a,findi,hang+1,lie);
+        return result;
+    }
+    /*********** 面试题5 替换空格***************/
+    public  static  char[] th_space(char[] ss){
+            int length=ss.length;
+            char[] xin=new char[4*length];
+            for(int i=0;i<ss.length;i++)
+            {
+                xin[i]=ss[i];
+            }
+            int count=0;
+            for(char s:xin) {
+                if(s == ' ')
+                    count++;
+            }
+            System.out.println(count);
+            for(int i=length-1;i >=0;i--)
+            {
+                if(xin[i] != ' ') {
+                    xin[i + count * 2] = xin[i];
+                }else {
+                    count--;
+                    xin[i+count*2]='%';
+                    xin[i+count*2+1]='2';
+                    xin[i+count*2+2]='0';
+                }
+            }
+            return xin;
     }
 }
