@@ -1,7 +1,5 @@
 import javax.swing.text.html.HTMLDocument;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 public class pro_1 {
     public static   void main(String[] args){
@@ -20,12 +18,21 @@ public class pro_1 {
 //        System.out.println(cc);
 //        System.out.println(double_in(aa,6,0,aa[0].length-1));
 /*****************7重建二叉树*************************/
-        int[] a={1,2,4,7,3,5,6,8};
-        int[] b={4,7,2,1,5,3,8,6};
-        Tree tree=new Tree();
-        tree.root=cj_Tree(a,b,tree);
-        System.out.println(tree.root);
-        tree.zx_print();
+//        int[] a={1,2,4,7,3,5,6,8};
+//        int[] b={4,7,2,1,5,3,8,6};
+//        Tree tree=new Tree();
+//        tree.root=cj_Tree(a,b);
+//        System.out.println(tree.root);
+//        tree.zx_print();
+/*****************9两个栈实现队列*************************/
+            Queue_w queue_w=new Queue_w();
+            for(int i=0;i<5;i++) {
+                queue_w.appendTail(i);
+            }
+        for(int i=0;i<5;i++) {
+           System.out.println(queue_w.deleteHead());
+        }
+
 
 
 
@@ -115,7 +122,7 @@ public class pro_1 {
             return xin;
     }
       /**************7:重建二叉树*****************/
-     public static TreeNode cj_Tree(int[] qx,int[] zx,Tree tree){
+     public static TreeNode cj_Tree(int[] qx,int[] zx){
          if(qx.length == 0 || zx.length == 0)
              return null;
 
@@ -163,8 +170,8 @@ public class pro_1 {
          {
              rightzx[j]=zx[i+1+j];
          }
-         treeNode.leftchild=cj_Tree(qx,leftzx,tree);
-         treeNode.rightchild=cj_Tree(qx,rightzx,tree);
+         treeNode.leftchild=cj_Tree(qx,leftzx);
+         treeNode.rightchild=cj_Tree(qx,rightzx);
          return  treeNode;
 
 
@@ -199,5 +206,24 @@ class Tree{
           System.out.print(node);
           print(node.rightchild);
      }
+}
+/****************面试题9用两个栈实现队列*********************/
+class Queue_w{
+    private Stack<Integer> stack1=new Stack<>();
+    private Stack<Integer> stack2=new Stack<>();
+    public  void appendTail(int t){
+         stack1.push(t);
+    }
+    public int  deleteHead() throws EmptyStackException {
+        if (!stack2.isEmpty()) {
+            return stack2.pop();
+        } else  if(!stack1.isEmpty()){
+            while (!stack1.isEmpty()) {
+                stack2.push(stack1.pop());
+            }
+            return stack2.pop();
+        }else
+            throw new EmptyStackException();
+    }
 }
 
