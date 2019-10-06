@@ -24,14 +24,25 @@ public class pro_1 {
 //        tree.root=cj_Tree(a,b);
 //        System.out.println(tree.root);
 //        tree.zx_print();
-/*****************9两个栈实现队列*************************/
-            Queue_w queue_w=new Queue_w();
-            for(int i=0;i<5;i++) {
-                queue_w.appendTail(i);
-            }
-        for(int i=0;i<5;i++) {
-           System.out.println(queue_w.deleteHead());
-        }
+///*****************9两个栈实现队列*************************/
+//            Queue_w queue_w=new Queue_w();
+//            for(int i=0;i<5;i++) {
+//                queue_w.appendTail(i);
+//            }
+//        for(int i=0;i<5;i++) {
+//           System.out.println(queue_w.deleteHead());
+//        }
+/*****************9-1 两个队列实现栈***********************/
+         Stack_w stack_w=new Stack_w();
+         for(int i=0;i<5;i++)
+          stack_w.push(i);
+        System.out.println(stack_w.pop());
+
+        for(int i=0;i<5;i++)
+            stack_w.push(i);
+        for(int i=9;i>0;i--)
+            System.out.println(stack_w.pop());
+
 
 
 
@@ -226,4 +237,33 @@ class Queue_w{
             throw new EmptyStackException();
     }
 }
+/****************面试题9-1用两个队列实现栈*********************/
+class Stack_w {
+    private Queue<Integer> queue1 = new LinkedList<>();
+    private Queue<Integer> queue2 = new LinkedList<>();
+
+    public void push(int t) {
+        if (queue1.isEmpty())
+            queue2.add(t);
+        else if (queue2.isEmpty())
+            queue1.add(t);
+    }
+
+    public int pop() throws EmptyStackException {
+        if (queue1.isEmpty() && queue2.isEmpty())
+            throw new EmptyStackException();
+        if (queue1.isEmpty()) {
+            while (queue2.size() != 1)
+                queue1.add(queue2.remove());
+            return queue2.remove();
+        }
+        if (queue2.isEmpty()) {
+            while (queue1.size() != 1)
+                queue2.add(queue1.remove());
+            return queue1.remove();
+        }
+        return  -1;
+    }
+}
+
 
