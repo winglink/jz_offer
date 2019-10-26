@@ -33,21 +33,40 @@ public class pro_1 {
 //           System.out.println(queue_w.deleteHead());
 //        }
 /*****************9-1 两个队列实现栈***********************/
-         Stack_w stack_w=new Stack_w();
-         for(int i=0;i<5;i++)
-          stack_w.push(i);
-        System.out.println(stack_w.pop());
+//         Stack_w stack_w=new Stack_w();
+//         for(int i=0;i<5;i++)
+//          stack_w.push(i);
+//        System.out.println(stack_w.pop());
+//gg
+//        for(int i=0;i<5;i++)
+//            stack_w.push(i);
+//        for(int i=9;i>0;i--)
+//            System.out.println(stack_w.pop());
+/*****************9-1 两个队列实现栈complete***********************/
+/*****************11 旋转数组的最小数字***********************/
+////            int[] ss={3,4,5,1,2};
+//            int[] ss={5,2};
+//            System.out.println( xz_Sz.xz(ss,0,ss.length-1));
 
-        for(int i=0;i<5;i++)
-            stack_w.push(i);
-        for(int i=9;i>0;i--)
-            System.out.println(stack_w.pop());
+/*****************11 旋转数组的最小数字 complete***********************/
+/*****************12 矩阵中的路径 回溯法***********************/
+                char[][] ss={
+                        {'a','b','t','g'},
+                        {'c','f','c','s'},
+                        {'j','d','e','h'},
+                        {'f','c','d','h'}
+                };
+
+        System.out.println("ss.length"+ss.length+" "+ss[0].length);
+                char[] s={'f'};
+                System.out.println(Jzlj_Hs.jzlj_hs(ss,s));
+
+/*****************12 矩阵中的路径 回溯法*complete**********************/
 
 
 
 
 
-/*****************7重建二叉树*************************/
     }
     /**********题目3 数组中的重复数字 *****************/
     public void find_c(int[] a ) {
@@ -265,5 +284,101 @@ class Stack_w {
         return  -1;
     }
 }
+/**************斐波那契数列*********************/
+ class  fbnq{
+       public  static  int fbnq_xh(int n){
+             int[] resultn={0,1};
+             if(n<2)
+                 return resultn[n];
+             int num1=0;
+             int num2=1;
+             int result=0;
+             for(int i=2;i<=n;i++){
+                 result=num1+num2;
+                 num1=num2;
+                 num2=result;
+             }
+             return  result;
+       }
+}
 
+/**************11  旋转数组*********************/
+class xz_Sz {
+          public static  int   xz(int[] ss,int start,int end){
+              if(start == end)
+                   return  start;
+              int min_index=-1;
+              System.out.println("end="+end);
+              if((end-start) == 1)
+                  return  ss[start]<ss[end]?start:end;
+              int fenge=(start+end)/2;
+              if(ss[fenge] >= ss[start] && ss[fenge]<=ss[end])
+                  return  start;
+              else if(ss[fenge] >= ss[start])
+                  min_index=xz(ss,fenge,end);
+              else if(ss[fenge] <= ss[end])
+                  min_index=xz(ss,start,fenge);
+              return  ss[min_index];
+          }
+}
+/**************12  矩阵中的路径 回溯法*********************/
+class Jzlj_Hs{
+      private static int index_s;
+      Jzlj_Hs(){
+          index_s=0;
+      }
+   public  static  boolean   jzlj_hs(char[][] ss,char[] s){
+            int row=0;
+            int col=0;
+            boolean[][] jz_b=new boolean[ss.length][ss[0].length];
+            for(int i=0;i < jz_b.length;i++)
+            {
+                for(int j=0;j< jz_b[0].length;j++)
+                {
+                    jz_b[i][j]=false;
+                }
+            }
+            for(;row < ss.length;row++)
+            {
+                for(col=0;col < ss[0].length;col++)
+                {
+                    if (hasPath(ss,s,row,col,jz_b) ==  true) {
+                        System.out.println("row="+row+" col="+col+" index_s="+index_s);
+                        return true;
+                    }
+                }
+            }
+            return  false;
+   }
+   public static boolean  hasPath(char[][] ss,char[] s,int row,int col,boolean[][] jz_b){
+                System.out.println("in hasPath() row="+row+" col="+col+" index_s="+index_s);
+              //  System.out.println("ss[row][col]="+ss[row][col]);
+              // System.out.println("jz-b[row][col]"+jz_b[row][col]);
+    //   System.out.println("s[index_s]"+s[index_s]);
+      // System.out.println(row >=0 && row <ss.length && col>=0 && col<ss[0].length );
+               if( index_s >= s.length)
+                   return  true;
+               if( row >=0 && row <ss.length && col>=0 && col<ss[0].length && ss[row][col] == s[index_s] && jz_b[row][col] == false){
+                   jz_b[row][col]=true;
+                   index_s++;
+                   System.out.println("hasPath  ss[row][col]== s[index_s]"+"row="+row+" col="+col+" index_s="+index_s);
+                   boolean has_p=hasPath(ss,s,row+1,col,jz_b) ||
+                             hasPath(ss,s,row-1,col,jz_b) ||
+                             hasPath(ss,s,row,col+1,jz_b) ||
+                             hasPath(ss,s,row,col-1,jz_b);
+
+                   if(has_p == false){
+                       jz_b[row][col]=false;
+                       index_s--;
+                       System.out.println("after husu  hasPath  ss[row][col]== s[index_s]"+"row="+row+" col="+col+" index_s="+index_s);
+                       return  false;
+                   }
+                   return  true;
+               }
+               return  false;
+   }
+
+
+
+}
 
